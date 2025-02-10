@@ -1,9 +1,9 @@
 # 30github
 
-Привет! 👋  
-Я студент 1 курса университета AIT.  
+Hi! 👋
+I am a first-year student at AIT University.
 
-### О себе  
-- В этом репозитории я публикую свои проекты и учебные работы.  
-- На 2-м семестре буду изучать **Web Development** и **Java**.  
-- Буду выкладывать программы на **Java** и **JavaScript**.    
+About Me
+In this repository, I publish my projects and study work.
+In the 2nd semester, I will be studying Web Development and Java.
+I will be uploading programs in Java and JavaScript.
