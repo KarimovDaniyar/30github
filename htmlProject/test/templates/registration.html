@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    <style>
+        body{
+            font-family:courier;
+        }
+        .button-container{
+            display:flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+    
+        .btn{
+            padding: 10px 20px;
+            border: none;
+            font-size:16px;
+            background-color:#007bff;
+            color:white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    
+        .btn:hover{
+            background-color:#0056b3
+        }
+        .input-container {
+            display: flex;
+            justify-content: center; /* Центрируем по горизонтали */
+            margin-top: 20px; /* Отступ сверху */
+        }
+    
+        .input-field {
+            width: 300px; /* Ширина инпута */
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #007bff;
+            border-radius: 5px;
+            text-align: center; /* Текст внутри тоже центрируется */
+        }
+    
+    </style>
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+</head>
+<body>
+    <h3 style="text-align:center;">Войдите в свой аккаунт</h3>
+    <div class="input-container">
+        <input class="input-field "id="inputevalue" type="text"> 
+    </div>
+    <div class="button-container">
+        <button class="btn" id="login" onclick="checkUser()">Войти</button>
+        <script>
+            function checkUser(){
+                let username = document.getElementById("inputevalue").value
+                if(username){
+                    fetch('/check_user',{method: 'POST',
+                                         headers:{
+                                            'Content-Type': 'application/json',
+                                         },
+                                         body: JSON.stringify({username: username}),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if(data.status === "success"){
+                            window.location.href = "/index"
+                        }
+                    })
+                    .catch(error => console.error("Ошибка: ", error));
+                }else{
+                    alert("Пожалуйста, введите имя пользователя ")
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>
