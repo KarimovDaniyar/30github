@@ -65,9 +65,26 @@ let correct = 0
 let incorrect = 0
 let questions = 0
 
+window.onload = function() {
+    generate();
+};
+    
+
+window.onload = function() {
+    fetch('/get_stats')
+    .then(response => response.json())
+    .then(data => {
+        correct = data.correct;
+        incorrect = data.incorrect;
+        questions = data.question_count;
+        generate();
+    });
+};
+
+
 function generate() {
-    let v1 = Math.round(Math.random() * 10);
-    let v2 = Math.round(Math.random() * 10);
+    let v1 = Math.round(Math.random() * 100);
+    let v2 = Math.round(Math.random() * 100);
 	questions += 1
     correctResult = v1 + v2;
     document.getElementById("display").innerHTML = `
@@ -82,17 +99,25 @@ function generate() {
 
 function checkResult() {
     let inputValue = document.getElementById("inputevalue").value;
-    if (parseInt(inputValue) === correctResult) {
-        document.getElementById("result").innerHTML = "<h3>Правильно 🤩</h3>";
-        correct += 1
-		generate()
-    } else {
-        document.getElementById("result").innerHTML = "<h3>Не правильно 😱</h3>";
-		incorrect += 1
-    }
-}
+    let isCorrect = parseInt(inputValue) === correctResult;
 
-generate();
+    document.getElementById("result").innerHTML = isCorrect
+    ? "<h3>Правильно 🤩</h3>" 
+    : "<h3>Не правильно 😱</h3>";
+
+    fetch('/check_answer', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body:JSON.stringify({
+            correct: isCorrect
+        })
+    }).then(response=> response.json())
+      .then(data=>{
+        correct = data.correct;
+        incorrect = data.incorrect
+        generate();
+      })
+}
 </script>
 
 </body>

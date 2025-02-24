@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, jsonify
+from flask import Flask, request, render_template, jsonify, session
 from flask_cors import CORS
 from random import randint
 from collections import defaultdict
@@ -6,18 +6,36 @@ from collections import defaultdict
 app = Flask(__name__)
 CORS(app)
 
-users = defaultdict()
-users = {"den": {"correct": 0,
-    "attempt": 0,
-    "incorrect":0,
-    "question_count":0} }
-print(users)
+app.secret_key = "aloe"
 
-d = {
-    "question":"",
-}
+users = {}
+
+question = ""
 
 ops = "+-"
+
+@app.route('/')
+def mainWindow():
+    return render_template("registration.html") 
+
+
+@app.route('/check_user', methods=['POST'])
+def checkUser():
+    data = request.get_json()
+    username = data.get('username')
+    
+    session['username'] = username
+    
+    if username not in users:
+        users[username] = {"correct": 0,"incorrect":0,"question_count":0}
+    
+    return jsonify({"status": "success"}), 200
+
+
+@app.route('/index')
+def index():
+    return render_template("index.html")
+
 
 @app.route('/get_question')
 def generate_question():
@@ -26,43 +44,36 @@ def generate_question():
         second = randint(1,100)
         first, second = max(first,second), min(first,second)
         op = ops[randint(0,1)]
-        d["question"] = f"{first}{op}{second}"
-        users["den"]["question_count"]+=1
-        return jsonify({"question: ": d["question"]})
+        question = f"{first}{op}{second}"
+        return jsonify({"question:": question})
     except:
         return "ERROR IN THE SERVER"
     
-@app.route('/check_result')
-def check_result():
-    try:
-        answer = int(request.args.get("answer"))
-        users["d"]["attempt"] += 1
-        if answer == eval(d["question"]):
-            users['den']["correct"]+=1
-        else:
-            users['den']["incorrect"]+=1
-        return jsonify(d)
-    except:
-        return "ERROR IN THE SERVER"
+ 
+@app.route('/check_answer', methods=['POST'])
+def check_answer():
+        
+    data = request.json
+    username = session['username']
     
-@app.route('/')
-def mainWindow():
-    return render_template("registration.html") 
-    
-@app.route('/check_user', methods=['POST'])
-def checkUser():
-    data = request.get_json()
-    username = data.get('username')
-    
-    if username in users:
-        return jsonify({"status": "success"})
+    if data['correct']:
+        users[username]['correct']+=1
     else:
-        users[username] = {"correct": 0,"attempt": 0,"incorrect":0,"question_count":0}
-        return jsonify({"status": "success"}), 404
+        users[username]['incorrect']+=1
+    users[username]["question_count"]+=1
+    
+    return jsonify(users[username])
 
-@app.route('/index')
-def index():
-    return render_template("index.html")
 
+@app.route('/get_stats')
+def get_stats():
+    username = session.get('username', 'guest')
+    if username not in users:
+        users[username] = {"correct": 0, "incorrect": 0, "question_count": 0}
+    
+    return jsonify(users[username])
+
+
+    
 if __name__ == "__main__":
     app.run(debug=True)

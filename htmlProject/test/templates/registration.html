@@ -53,28 +53,28 @@
     </div>
     <div class="button-container">
         <button class="btn" id="login" onclick="checkUser()">Войти</button>
-        <script>
-            function checkUser(){
-                let username = document.getElementById("inputevalue").value
-                if(username){
-                    fetch('/check_user',{method: 'POST',
-                                         headers:{
-                                            'Content-Type': 'application/json',
-                                         },
-                                         body: JSON.stringify({username: username}),
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if(data.status === "success"){
-                            window.location.href = "/index"
-                        }
-                    })
-                    .catch(error => console.error("Ошибка: ", error));
-                }else{
-                    alert("Пожалуйста, введите имя пользователя ")
-                }
+
+    <script>
+        function checkUser(){
+            let username = document.getElementById("inputevalue").value;
+            if(username){
+                fetch('/check_user', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({username: username}),
+                })
+                .then(response => response.json())
+                .then(() => {
+                    window.location.href = "/index";
+                })
+                .catch(error => console.error("Ошибка: ", error));
+            } else {
+                alert("Пожалуйста, введите имя пользователя");
             }
-        </script>
+        }
+    </script>    
+
+
     </div>
 </body>
 </html>
