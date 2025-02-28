@@ -43,7 +43,7 @@ background-color: white;</string>
      <enum>Qt::TextFormat::MarkdownText</enum>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="pushButton_clear">
     <property name="geometry">
      <rect>
       <x>0</x>

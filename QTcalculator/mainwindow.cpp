@@ -47,8 +47,12 @@ void MainWindow::digits()
     double numbers;
     QString new_label;
 
-    numbers = (ui->result_show->text()+button->text()).toDouble();
-    new_label = QString::number(numbers,'g',15);
+    if(ui->result_show->text().contains(".") && button->text()== "0"){
+        new_label = ui->result_show->text()+button->text();
+    }else{
+        numbers = (ui->result_show->text()+button->text()).toDouble();
+            new_label = QString::number(numbers,'g',15);
+    }
 
     ui->result_show->setText(new_label);
 }
@@ -86,11 +90,6 @@ void MainWindow:: math()
     ui->result_show->setText("");
 
     button->setChecked(true);
-
-}
-
-void MainWindow::on_pushButton_clicked()
-{
 
 }
 
@@ -132,3 +131,14 @@ void MainWindow::on_pushButton_equals_clicked()
         ui->pushButton_multip->setChecked(false);
     }
 }
+
+void MainWindow::on_pushButton_clear_clicked()
+{
+    ui->pushButton_multip->setChecked(false);
+    ui->pushButton_minus->setChecked(false);
+    ui->pushButton_plus->setChecked(false);
+    ui->pushButton_divide->setChecked(false);
+    ui->result_show->setText("0");
+
+}
+

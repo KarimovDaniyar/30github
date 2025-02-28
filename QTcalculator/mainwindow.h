@@ -24,8 +24,8 @@ private slots:
     void digits();
     void on_pushButton_dot_clicked();
     void operations();
-    void on_pushButton_clicked();
     void on_pushButton_equals_clicked();
     void math();
+    void on_pushButton_clear_clicked();
 };
 #endif // MAINWINDOW_H
