@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="chat.css">
+</head>
+<body>
+    <h1 style="text-align: center;">Login</h1>
+    <div class="loginContainer">
+        <p id="display"></p>
+        <input class="input-field" type="text" placeholder="Enter login">
+        
+        <div class="password-container">
+            <input class="input-field" id="password" type="password" placeholder="Enter password">
+            <button class="togglePassword" onclick="togglePassword()">
+                <span id="icon">🔒</span>
+            </button>
+        </div>
+
+        <button class="submitBtn" onclick="document.getElementById('display').innerHTML = 'hi'">Submit</button>
+    </div>
+
+    <script>
+        function togglePassword(){
+            let password = document.getElementById("password");
+            let icon = document.getElementById("icon")
+            if(password.type==="password"){
+                password.type = "text";
+                 icon.textContent = "🔓";
+            }else{
+                password.type = "password";
+                icon.textContent ="🔒"; 
+            }
+        }
+    </script>
+
+</body>
+</html>
