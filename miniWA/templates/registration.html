@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <link rel="stylesheet" href="chat.css">
+</head>
+<body>
+    <p id="p"></p>
+    <h1 style="text-align: center;">Registration</h1>
+    <div class="registrationContainer">
+        <form>
+            <input class="input-field" type="text" placeholder="Enter login">
+            
+            <div class="password-container">
+                <input class="input-field" id="password" type="password1" placeholder="Enter password" required>
+                <input class="input-field" id="password" type="password2" placeholder="Repeat password" required>
+                <button class="togglePassword" onclick="togglePassword()">
+                    <span id="icon">🔒</span>
+                </button>
+            </div>
+
+            <button class="createAcc" onclick="checkAcc">Create account</button>
+        </form>
+    </div>
+
+    <script>
+        function togglePassword(){
+            let password = document.getElementById("password");
+            let icon = document.getElementById("icon")
+            if(password.type==="password"){
+                password.type = "text";
+                 icon.textContent = "🔓";
+            }else{
+                password.type = "password";
+                icon.textContent ="🔒"; 
+            }
+        }
+
+        function checkAcc(){
+            var pass1 = document.getElementById("p").innerHTML = "Пароли совпадают";
+            var pass2 = document.getElementById("p").innerHTML = "Пароли не совпадают";
+            if(pass1 !== pass2){
+                document.getElementById("p").innerHTML = "Пароли не совпадают";
+                return false;
+            }
+            return true;
+        }
+    </script>
+
+</body>
+</html>

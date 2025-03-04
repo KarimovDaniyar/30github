@@ -38,18 +38,12 @@
 
 .togglePassword {
     position: absolute;
-    /*/right: 5px;
+    right: 5px;
     width: auto;
     height: 30px;
     font-size: 14px;
     background-color: white;
     color: black;
     border-radius: 5px;
-    padding: 5px; */ */
-    background: none; /* Убираем фон */
-    border: none;     /* Убираем границу */
-    padding: 0;       /* Убираем отступы */
-    font-size: 14px;  /* Размер значка */
-    cursor: pointer;
-
+    padding: 5px;
 }
