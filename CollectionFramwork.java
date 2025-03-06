@@ -16,7 +16,7 @@ class Student {
 
 class StudentManager {
     Map<Integer, Student> students = new HashMap<>();
-
+    
     void addStudent(int id, String name, int age) {
         students.put(id, new Student(id, name, age));
     }
@@ -37,12 +37,20 @@ class StudentManager {
     }
 
     void displayStudents() {
-        students.values().stream().sorted(Comparator.comparingInt(s -> s.id)).forEach(System.out::println);
-    } // признаюсь с этим помог GPT
+        for (int i = 1; i <= students.size(); i++) {
+            if (students.containsKey(i)) {
+                System.out.println(students.get(i));
+            }
+        }
+    }
 
     void searchStudentById(int id) {
-        System.out.println(students.containsKey(id) ? students.get(id) : "Student not found");
-    } // с этим тоже
+        if (students.containsKey(id)) {
+            System.out.println(students.get(id));
+        } else {
+            System.out.println("Student not found");
+        }
+    }
 
     void listStudentsByCourse(String course) {
         for (Student s : students.values()) {
@@ -51,7 +59,7 @@ class StudentManager {
     }
 }
 
-public class CollectionFramwork {
+public class Main {
     public static void main(String[] args) {
         StudentManager manager = new StudentManager();
         manager.addStudent(1, "Alice", 20);
