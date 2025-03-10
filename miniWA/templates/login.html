@@ -1,40 +1,15 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
-  <link rel="stylesheet" href="chat.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
 </head>
 <body>
-  <h1 style="text-align: center;">Login</h1>
-  <div class="loginContainer">
-    <form action="/login" method="post">
-      <input class="input-field" type="text" name="username" placeholder="Enter login" required>
-      
-      <div class="password-container">
-        <input class="input-field" id="password" type="password" name="password" placeholder="Enter password" required>
-        <button type="button" class="togglePassword" onclick="togglePassword()">
-          <span id="icon">🔒</span>
-        </button>
-      </div>
-      <button type="submit" class="submitBtn">Submit</button>
-    </form>
-    <p>Нет аккаунта? <a href="/register">Зарегистрироваться</a></p>
-  </div>
-
-  <script>
-    function togglePassword(){
-      let password = document.getElementById("password");
-      let icon = document.getElementById("icon");
-      if(password.type === "password"){
-        password.type = "text";
-        icon.textContent = "🔓";
-      } else {
-        password.type = "password";
-        icon.textContent = "🔒"; 
-      }
-    }
-  </script>
+    <h1>Login</h1>
+    <input type="text" id="username">
+    <input type="password" id="password"> 
+    <button>Login</button>
+    <a href="/registration">Нет аккаунта ?</a>
 </body>
 </html>
